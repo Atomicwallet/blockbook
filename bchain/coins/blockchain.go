@@ -5,6 +5,7 @@ import (
 	"blockbook/bchain/coins/bch"
 	"blockbook/bchain/coins/bellcoin"
 	"blockbook/bchain/coins/btc"
+	"blockbook/bchain/coins/btg"
 	"blockbook/bchain/coins/cpuchain"
 	"blockbook/bchain/coins/dash"
 	"blockbook/bchain/coins/dcr"
