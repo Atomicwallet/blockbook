@@ -34,13 +34,6 @@ func init() {
 	// Address encoding magics
 	TestNetParams.PubKeyHashAddrID = []byte{140} // base58 prefix: y
 	TestNetParams.ScriptHashAddrID = []byte{19}  // base58 prefix: 8 or 9
-
-	RegtestParams = chaincfg.RegressionNetParams
-	RegtestParams.Net = RegtestMagic
-
-	// Address encoding magics
-	RegtestParams.PubKeyHashAddrID = []byte{140} // base58 prefix: y
-	RegtestParams.ScriptHashAddrID = []byte{19}  // base58 prefix: 8 or 9
 }
 
 // BdiamondParser handle
