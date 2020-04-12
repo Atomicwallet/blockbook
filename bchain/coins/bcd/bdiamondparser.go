@@ -39,6 +39,7 @@ func init() {
 // BdiamondParser handle
 type BdiamondParser struct {
 	*btc.BitcoinParser
+	baseparser *bchain.BaseParser
 }
 
 // NewBdiamondParser returns new DashParser instance
