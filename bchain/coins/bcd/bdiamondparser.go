@@ -1,4 +1,4 @@
-package bitcoindiamond
+package bdiamond
 
 import (
 	"blockbook/bchain"
@@ -43,22 +43,22 @@ func init() {
 	RegtestParams.ScriptHashAddrID = []byte{19}  // base58 prefix: 8 or 9
 }
 
-// BitcoindiamondParser handle
-type BitcoindiamondParser struct {
+// BdiamondParser handle
+type BdiamondParser struct {
 	*btc.BitcoinParser
 }
 
-// NewBitcoindiamondParser returns new DashParser instance
-func NewBitcoindiamondParser(params *chaincfg.Params, c *btc.Configuration) *BitcoindiamondParser {
-	return &BitcoindiamondParser{
+// NewBdiamondParser returns new DashParser instance
+func NewBdiamondParser(params *chaincfg.Params, c *btc.Configuration) *BdiamondParser {
+	return &BdiamondParser{
 		BitcoinParser: btc.NewBitcoinParser(params, c),
 		baseparser:    &bchain.BaseParser{},
 	}
 }
 
-// GetChainParams contains network parameters for the main Bitcoindiamond network,
-// the regression test Bitcoindiamond network, the test Bitcoindiamond network and
-// the simulation test Bitcoindiamond network, in this order
+// GetChainParams contains network parameters for the main Bdiamond network,
+// the regression test Bdiamond network, the test Bdiamond network and
+// the simulation test Bdiamond network, in this order
 func GetChainParams(chain string) *chaincfg.Params {
 	if !chaincfg.IsRegistered(&MainNetParams) {
 		err := chaincfg.Register(&MainNetParams)
@@ -78,11 +78,11 @@ func GetChainParams(chain string) *chaincfg.Params {
 }
 
 // PackTx packs transaction to byte array using protobuf
-func (p *BitcoindiamondParser) PackTx(tx *bchain.Tx, height uint32, blockTime int64) ([]byte, error) {
+func (p *BdiamondParser) PackTx(tx *bchain.Tx, height uint32, blockTime int64) ([]byte, error) {
 	return p.baseparser.PackTx(tx, height, blockTime)
 }
 
 // UnpackTx unpacks transaction from protobuf byte array
-func (p *BitcoindiamondParser) UnpackTx(buf []byte) (*bchain.Tx, uint32, error) {
+func (p *BdiamondParser) UnpackTx(buf []byte) (*bchain.Tx, uint32, error) {
 	return p.baseparser.UnpackTx(buf)
 }
