@@ -1,4 +1,4 @@
-package bitcoindiamond
+package bdiamond
 
 import (
 	"blockbook/bchain"
@@ -11,19 +11,19 @@ import (
 
 const firstBlockWithSpecialTransactions = 1028160
 
-// BitcoindiamondRPC is an interface to JSON-RPC bitcoind service
-type BitcoindiamondRPC struct {
+// BdiamondRPC is an interface to JSON-RPC bitcoind service
+type BdiamondRPC struct {
 	*btc.BitcoinRPC
 }
 
-// NewBitcoindiamondRPC returns new BitcoindiamondRPC instance
-func NewBitcoindiamondRPC(config json.RawMessage, pushHandler func(bchain.NotificationType)) (bchain.BlockChain, error) {
+// NewBdiamondRPC returns new BdiamondRPC instance
+func NewBdiamondRPC(config json.RawMessage, pushHandler func(bchain.NotificationType)) (bchain.BlockChain, error) {
 	b, err := btc.NewBitcoinRPC(config, pushHandler)
 	if err != nil {
 		return nil, err
 	}
 
-	s := &BitcoindiamondRPC{
+	s := &BdiamondRPC{
 		b.(*btc.BitcoinRPC),
 	}
 	s.RPCMarshaler = btc.JSONMarshalerV1{}
@@ -32,8 +32,8 @@ func NewBitcoindiamondRPC(config json.RawMessage, pushHandler func(bchain.Notifi
 	return s, nil
 }
 
-// Initialize initializes BitcoindiamondRPC instance.
-func (b *BitcoindiamondRPC) Initialize() error {
+// Initialize initializes BdiamondRPC instance.
+func (b *BdiamondRPC) Initialize() error {
 	ci, err := b.GetChainInfo()
 	if err != nil {
 		return err
@@ -43,7 +43,7 @@ func (b *BitcoindiamondRPC) Initialize() error {
 	params := GetChainParams(chainName)
 
 	// always create parser
-	b.Parser = NewBitcoindiamondParser(params, b.ChainConfig)
+	b.Parser = NewBdiamondParser(params, b.ChainConfig)
 
 	// parameters for getInfo request
 	if params.Net == MainnetMagic {
@@ -60,7 +60,7 @@ func (b *BitcoindiamondRPC) Initialize() error {
 }
 
 // GetBlock returns block with given hash
-func (b *BitcoindiamondRPC) GetBlock(hash string, height uint32) (*bchain.Block, error) {
+func (b *BdiamondRPC) GetBlock(hash string, height uint32) (*bchain.Block, error) {
 	if hash == "" && height < firstBlockWithSpecialTransactions {
 		return b.BitcoinRPC.GetBlock(hash, height)
 	}
@@ -109,6 +109,6 @@ func (b *BitcoindiamondRPC) GetBlock(hash string, height uint32) (*bchain.Block,
 
 // GetTransactionForMempool returns a transaction by the transaction ID.
 // It could be optimized for mempool, i.e. without block time and confirmations
-func (b *BitcoindiamondRPC) GetTransactionForMempool(txid string) (*bchain.Tx, error) {
+func (b *BdiamondRPC) GetTransactionForMempool(txid string) (*bchain.Tx, error) {
 	return b.GetTransaction(txid)
 }

@@ -2,10 +2,10 @@ package coins
 
 import (
 	"blockbook/bchain"
+	"blockbook/bchain/coins/bcd"
 	"blockbook/bchain/coins/bch"
 	"blockbook/bchain/coins/bellcoin"
 	"blockbook/bchain/coins/btc"
-	"blockbook/bchain/coins/btg"
 	"blockbook/bchain/coins/cpuchain"
 	"blockbook/bchain/coins/dash"
 	"blockbook/bchain/coins/dcr"
@@ -105,7 +105,7 @@ func init() {
 	BlockChainFactories["CPUchain"] = cpuchain.NewCPUchainRPC
 	BlockChainFactories["Unobtanium"] = unobtanium.NewUnobtaniumRPC
 	BlockChainFactories["DeepOnion"] = deeponion.NewDeepOnionRPC
-	BlockChainFactories["Bitcoindiamond"] = bcd.NewBdiamondRPC
+	BlockChainFactories["BitcoinDiamond"] = bcd.NewBdiamondRPC
 }
 
 // GetCoinNameFromConfig gets coin name and coin shortcut from config file
