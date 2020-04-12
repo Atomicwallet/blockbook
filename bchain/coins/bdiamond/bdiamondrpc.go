@@ -9,7 +9,7 @@ import (
 	"github.com/juju/errors"
 )
 
-const firstBlockWithSpecialTransactions = 1028160
+const firstBlockWithSpecialTransactions = 614218
 
 // BdiamondRPC is an interface to JSON-RPC bitcoind service
 type BdiamondRPC struct {
