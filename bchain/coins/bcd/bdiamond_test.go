@@ -1,6 +1,6 @@
 // build unittest
 
-package bitcoindiamond
+package bdiamond
 
 import (
 	"blockbook/bchain"
