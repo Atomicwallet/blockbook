@@ -218,7 +218,7 @@ func Test_PackTx(t *testing.T) {
 		tx        bchain.Tx
 		height    uint32
 		blockTime int64
-		parser    *DashParser
+		parser    *BdiamondParser
 	}
 	tests := []struct {
 		name    string
@@ -267,7 +267,7 @@ func Test_PackTx(t *testing.T) {
 func Test_UnpackTx(t *testing.T) {
 	type args struct {
 		packedTx string
-		parser   *DashParser
+		parser   *BdiamondParser
 	}
 	tests := []struct {
 		name    string
