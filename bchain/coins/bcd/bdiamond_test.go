@@ -73,7 +73,7 @@ func helperLoadBlock(t *testing.T, height int) []byte {
 }
 
 func TestParseBlock(t *testing.T) {
-	p := NewDashParser(GetChainParams("main"), &btc.Configuration{})
+	p := NewBdiamondParser(GetChainParams("main"), &btc.Configuration{})
 
 	for height, tb := range testParseBlockTxs {
 		b := helperLoadBlock(t, height)
@@ -181,7 +181,7 @@ var (
 )
 
 func TestBaseParser_ParseTxFromJson(t *testing.T) {
-	p := NewDashParser(GetChainParams("main"), &btc.Configuration{})
+	p := NewBdiamondParser(GetChainParams("main"), &btc.Configuration{})
 	tests := []struct {
 		name    string
 		msg     string
@@ -232,7 +232,7 @@ func Test_PackTx(t *testing.T) {
 				tx:        testTx1,
 				height:    1028160,
 				blockTime: 1551246710,
-				parser:    NewDashParser(GetChainParams("main"), &btc.Configuration{}),
+				parser:    NewBdiamondParser(GetChainParams("main"), &btc.Configuration{}),
 			},
 			want:    testTxPacked1,
 			wantErr: false,
@@ -243,7 +243,7 @@ func Test_PackTx(t *testing.T) {
 				tx:        testTx2,
 				height:    1028160,
 				blockTime: 1551246710,
-				parser:    NewDashParser(GetChainParams("main"), &btc.Configuration{}),
+				parser:    NewBdiamondParser(GetChainParams("main"), &btc.Configuration{}),
 			},
 			want:    testTxPacked2,
 			wantErr: false,
@@ -280,7 +280,7 @@ func Test_UnpackTx(t *testing.T) {
 			name: "dash-1",
 			args: args{
 				packedTx: testTxPacked1,
-				parser:   NewDashParser(GetChainParams("main"), &btc.Configuration{}),
+				parser:   NewBdiamondParser(GetChainParams("main"), &btc.Configuration{}),
 			},
 			want:    &testTx1,
 			want1:   1028160,
@@ -290,7 +290,7 @@ func Test_UnpackTx(t *testing.T) {
 			name: "dash-2",
 			args: args{
 				packedTx: testTxPacked2,
-				parser:   NewDashParser(GetChainParams("main"), &btc.Configuration{}),
+				parser:   NewBdiamondParser(GetChainParams("main"), &btc.Configuration{}),
 			},
 			want:    &testTx2,
 			want1:   1028160,
