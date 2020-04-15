@@ -203,11 +203,11 @@ func TestBaseParser_ParseTxFromJson(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := p.ParseTxFromJson([]byte(tt.msg))
 			if (err != nil) != tt.wantErr {
-				t.Errorf("DashParser.ParseTxFromJson() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("BdiamondParser.ParseTxFromJson() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("DashParser.ParseTxFromJson() = %+v, want %+v", got, tt.want)
+				t.Errorf("BdiamondParser.ParseTxFromJson() = %+v, want %+v", got, tt.want)
 			}
 		})
 	}
