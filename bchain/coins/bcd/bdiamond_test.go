@@ -47,7 +47,7 @@ var testParseBlockTxs = map[int]testBlock{
             "db515e638649fe900ff88a171640d1cf3255501d73c4e5f7b18b5818023548ec",
             "092443b509c42f7710cabc3a0a733cf67adcbca1e507f6dd9e3134ca1355c7c1",
             "69dd43a06d19e586491057a18f5bcc001475a16654988bc36aeea2792c929ff6",
-            "1f9b4b81d5aa6ae2cec0f4a6f930f79f2ea9816cdff5fbaaa696c8119d739aac"
+            "1f9b4b81d5aa6ae2cec0f4a6f930f79f2ea9816cdff5fbaaa696c8119d739aac",
 		},
 	}
 }
