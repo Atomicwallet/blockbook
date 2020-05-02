@@ -1,4 +1,4 @@
-package ravencoin
+package snowgem
 
 import (
 	"blockbook/bchain"
@@ -9,46 +9,44 @@ import (
 	"github.com/juju/errors"
 )
 
-// RavencoinRPC is an interface to JSON-RPC bitcoind service.
-type RavencoinRPC struct {
+// SnowGemRPC is an interface to JSON-RPC bitcoind service
+type SnowGemRPC struct {
 	*btc.BitcoinRPC
 }
 
-// NewRavencoinRPC returns new RavencoinRPC instance.
-func NewRavencoinRPC(config json.RawMessage, pushHandler func(bchain.NotificationType)) (bchain.BlockChain, error) {
+// NewSnowGemRPC returns new SnowGemRPC instance
+func NewSnowGemRPC(config json.RawMessage, pushHandler func(bchain.NotificationType)) (bchain.BlockChain, error) {
 	b, err := btc.NewBitcoinRPC(config, pushHandler)
 	if err != nil {
 		return nil, err
 	}
-
-	s := &RavencoinRPC{
-		b.(*btc.BitcoinRPC),
+	z := &SnowGemRPC{
+		BitcoinRPC: b.(*btc.BitcoinRPC),
 	}
-	s.RPCMarshaler = btc.JSONMarshalerV2{}
-	s.ChainConfig.SupportsEstimateFee = false
-
-	return s, nil
+	z.RPCMarshaler = btc.JSONMarshalerV1{}
+	z.ChainConfig.SupportsEstimateSmartFee = false
+	return z, nil
 }
 
-// Initialize initializes RavencoinRPC instance.
-func (b *RavencoinRPC) Initialize() error {
-	ci, err := b.GetChainInfo()
+// Initialize initializes SnowGemRPC instance
+func (z *SnowGemRPC) Initialize() error {
+	ci, err := z.GetChainInfo()
 	if err != nil {
 		return err
 	}
 	chainName := ci.Chain
+
 	params := GetChainParams(chainName)
 
-	// always create parser
-	b.Parser = NewRavencoinParser(params, b.ChainConfig)
+	z.Parser = NewSnowGemParser(params, z.ChainConfig)
 
 	// parameters for getInfo request
 	if params.Net == MainnetMagic {
-		b.Testnet = false
-		b.Network = "livenet"
+		z.Testnet = false
+		z.Network = "livenet"
 	} else {
-		b.Testnet = true
-		b.Network = "testnet"
+		z.Testnet = true
+		z.Network = "testnet"
 	}
 
 	glog.Info("rpc: block chain ", params.Name)
@@ -57,10 +55,10 @@ func (b *RavencoinRPC) Initialize() error {
 }
 
 // GetBlock returns block with given hash.
-func (b *RavencoinRPC) GetBlock(hash string, height uint32) (*bchain.Block, error) {
+func (z *SnowGemRPC) GetBlock(hash string, height uint32) (*bchain.Block, error) {
 	var err error
 	if hash == "" && height > 0 {
-		hash, err = b.GetBlockHash(height)
+		hash, err = z.GetBlockHash(height)
 		if err != nil {
 			return nil, err
 		}
@@ -72,7 +70,7 @@ func (b *RavencoinRPC) GetBlock(hash string, height uint32) (*bchain.Block, erro
 	req := btc.CmdGetBlock{Method: "getblock"}
 	req.Params.BlockHash = hash
 	req.Params.Verbosity = 1
-	err = b.Call(&req, &res)
+	err = z.Call(&req, &res)
 
 	if err != nil {
 		return nil, errors.Annotatef(err, "hash %v", hash)
@@ -83,10 +81,10 @@ func (b *RavencoinRPC) GetBlock(hash string, height uint32) (*bchain.Block, erro
 
 	txs := make([]bchain.Tx, 0, len(res.Result.Txids))
 	for _, txid := range res.Result.Txids {
-		tx, err := b.GetTransaction(txid)
+		tx, err := z.GetTransaction(txid)
 		if err != nil {
 			if err == bchain.ErrTxNotFound {
-				glog.Errorf("rpc: getblock: skipping transaction in block %s due to error: %s", hash, err)
+				glog.Errorf("rpc: getblock: skipping transanction in block %s due error: %s", hash, err)
 				continue
 			}
 			return nil, err
@@ -102,6 +100,16 @@ func (b *RavencoinRPC) GetBlock(hash string, height uint32) (*bchain.Block, erro
 
 // GetTransactionForMempool returns a transaction by the transaction ID.
 // It could be optimized for mempool, i.e. without block time and confirmations
-func (b *RavencoinRPC) GetTransactionForMempool(txid string) (*bchain.Tx, error) {
-	return b.GetTransaction(txid)
+func (z *SnowGemRPC) GetTransactionForMempool(txid string) (*bchain.Tx, error) {
+	return z.GetTransaction(txid)
+}
+
+// GetMempoolEntry returns mempool data for given transaction
+func (z *SnowGemRPC) GetMempoolEntry(txid string) (*bchain.MempoolEntry, error) {
+	return nil, errors.New("GetMempoolEntry: not implemented")
+}
+
+func isErrBlockNotFound(err *bchain.RPCError) bool {
+	return err.Message == "Block not found" ||
+		err.Message == "Block height out of range"
 }
