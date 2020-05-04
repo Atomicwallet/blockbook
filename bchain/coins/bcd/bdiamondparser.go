@@ -54,9 +54,6 @@ func GetChainParams(chain string) *chaincfg.Params {
 		if err == nil {
 			err = chaincfg.Register(&TestNetParams)
 		}
-		if err == nil {
-			err = chaincfg.Register(&RegtestParams)
-		}
 		if err != nil {
 			panic(err)
 		}
