@@ -1,4 +1,4 @@
-package Bdiamond
+package bcd
 
 import (
 	"blockbook/bchain"
