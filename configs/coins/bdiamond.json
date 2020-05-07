@@ -6,17 +6,17 @@
     "alias": "bdiamond"
   },
   "ports": {
-    "backend_rpc": 8043,
-    "backend_message_queue": 38343,
+    "backend_rpc": 7116,
+    "backend_message_queue": 38346,
     "blockbook_internal": 9043,
     "blockbook_public": 9143
   },
   "ipc": {
-    "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
+    "rpc_url_template": "http://10.0.0.94:{{.Ports.BackendRPC}}",
     "rpc_user": "rpc",
     "rpc_pass": "rpc",
     "rpc_timeout": 25,
-    "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
+    "message_queue_binding_template": "tcp://10.0.0.94:{{.Ports.BackendMessageQueue}}"
   },
   "backend": {
     "package_name": "backend-bdiamond",
@@ -35,7 +35,8 @@
     "server_config_file": "bitcoin_like.conf",
     "client_config_file": "bitcoin_like_client.conf",
     "additional_params": {
-      "mempoolexpiry": 72
+      "mempoolexpiry": 72,
+      "deprecatedrpc": "estimatefee"
     }
   },
   "blockbook": {

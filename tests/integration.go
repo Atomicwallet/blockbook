@@ -13,7 +13,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net"
-	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -78,7 +77,10 @@ func runTests(t *testing.T, coin string, cfg map[string]json.RawMessage) {
 	defer chaincfg.ResetParams()
 
 	bc, m, err := makeBlockChain(coin)
+
 	if err != nil {
+		fmt.Println("mark_6")
+		fmt.Println(err)
 		if err == notConnectedError {
 			t.Fatal(err)
 		}
@@ -102,28 +104,34 @@ func makeBlockChain(coin string) (bchain.BlockChain, bchain.Mempool, error) {
 
 	outputDir, err := ioutil.TempDir("", "integration_test")
 	if err != nil {
+		fmt.Println("TempDir err:", err)
 		return nil, nil, err
 	}
-	defer os.RemoveAll(outputDir)
+	//defer os.RemoveAll(outputDir)
 
+	fmt.Println(outputDir)
 	err = build.GeneratePackageDefinitions(c, "../build/templates", outputDir)
 	if err != nil {
+		fmt.Println("GeneratePackageDefinitions err:", err)
 		return nil, nil, err
 	}
 
 	b, err := ioutil.ReadFile(filepath.Join(outputDir, "blockbook", "blockchaincfg.json"))
 	if err != nil {
+		fmt.Println("ReadFile err:", err)
 		return nil, nil, err
 	}
 
 	var cfg json.RawMessage
 	err = json.Unmarshal(b, &cfg)
 	if err != nil {
+		fmt.Println("Unmarshal err:", err)
 		return nil, nil, err
 	}
 
 	coinName, err := getName(cfg)
 	if err != nil {
+		fmt.Println("getName err:", err)
 		return nil, nil, err
 	}
 
@@ -164,10 +172,12 @@ func initBlockChain(coinName string, cfg json.RawMessage) (bchain.BlockChain, bc
 
 	for i := 0; ; i++ {
 		err = chain.Initialize()
+		fmt.Println("Initialize:", err)
 		if err == nil {
 			break
 		}
 		if isNetError(err) {
+			fmt.Println("isNetError")
 			return nil, nil, notConnectedError
 		}
 		// wait max 5 minutes for backend to startup

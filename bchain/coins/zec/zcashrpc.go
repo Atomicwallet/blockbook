@@ -4,6 +4,7 @@ import (
 	"blockbook/bchain"
 	"blockbook/bchain/coins/btc"
 	"encoding/json"
+	"fmt"
 
 	"github.com/golang/glog"
 	"github.com/juju/errors"
@@ -23,6 +24,7 @@ func NewZCashRPC(config json.RawMessage, pushHandler func(bchain.NotificationTyp
 	z := &ZCashRPC{
 		BitcoinRPC: b.(*btc.BitcoinRPC),
 	}
+	fmt.Println("NewZCashRPC:", z)
 	z.RPCMarshaler = btc.JSONMarshalerV1{}
 	z.ChainConfig.SupportsEstimateSmartFee = false
 	return z, nil

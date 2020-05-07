@@ -7,16 +7,16 @@
   },
   "ports": {
     "backend_rpc": 8032,
-    "backend_message_queue": 38332,
+    "backend_message_queue": 38346,
     "blockbook_internal": 9032,
     "blockbook_public": 9132
   },
   "ipc": {
-    "rpc_url_template": "http://127.0.0.1:{{.Ports.BackendRPC}}",
+    "rpc_url_template": "http://10.0.8.228:{{.Ports.BackendRPC}}",
     "rpc_user": "rpc",
     "rpc_pass": "rpc",
     "rpc_timeout": 25,
-    "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
+    "message_queue_binding_template": "tcp://10.0.8.228:{{.Ports.BackendMessageQueue}}"
   },
   "backend": {
     "package_name": "backend-zcash",
