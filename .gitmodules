@@ -1,0 +1,4 @@
+[submodule "blockbook-tools"]
+	path = blockbook-tools
+	url = git@github.com:Atomicwallet/blockbook-tools.git
+	active = true
