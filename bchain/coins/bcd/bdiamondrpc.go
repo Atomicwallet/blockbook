@@ -4,6 +4,7 @@ import (
 	"blockbook/bchain"
 	"blockbook/bchain/coins/btc"
 	"encoding/json"
+	"fmt"
 
 	"github.com/golang/glog"
 	"github.com/juju/errors"
@@ -102,6 +103,7 @@ func (z *BdiamondRPC) GetBlock(hash string, height uint32) (*bchain.Block, error
 // GetTransactionForMempool returns a transaction by the transaction ID.
 // It could be optimized for mempool, i.e. without block time and confirmations
 func (z *BdiamondRPC) GetTransactionForMempool(txid string) (*bchain.Tx, error) {
+	fmt.Println(txid)
 	return z.GetTransaction(txid)
 }
 

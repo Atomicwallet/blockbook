@@ -5,6 +5,7 @@ package rpc
 import (
 	"blockbook/bchain"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"path/filepath"
 	"reflect"
@@ -253,15 +254,17 @@ func testMempoolSync(t *testing.T, h *TestHandler) {
 			// no transactions to test
 			continue
 		}
-
 		txid2addrs := getTxid2addrs(t, h, txs)
 		if len(txid2addrs) == 0 {
 			t.Skip("Skipping test, no addresses in mempool")
 		}
 
 		for txid, addrs := range txid2addrs {
+			fmt.Println(txid, addrs)
 			for _, a := range addrs {
+				fmt.Println("address:", a)
 				got, err := h.Mempool.GetTransactions(a)
+				fmt.Println("GetTransactions:", got, err)
 				if err != nil {
 					t.Fatalf("address %q: %s", a, err)
 				}

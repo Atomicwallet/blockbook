@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"encoding/hex"
+	"fmt"
 	"math/big"
 	"strconv"
 
@@ -104,7 +105,10 @@ func (p *BitcoinParser) IsAddrDescIndexable(addrDesc bchain.AddressDescriptor) b
 
 // addressToOutputScript converts bitcoin address to ScriptPubKey
 func (p *BitcoinParser) addressToOutputScript(address string) ([]byte, error) {
+	fmt.Println("addressToOutputScript:", address)
 	da, err := btcutil.DecodeAddress(address, p.Params)
+	fmt.Println("addressToOutputScript p.Params:", p.Params)
+	fmt.Println("addressToOutputScript err:", err)
 	if err != nil {
 		return nil, err
 	}

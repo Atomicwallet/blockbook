@@ -31,17 +31,19 @@ func init() {
 	MainNetParams.Net = MainnetMagic
 
 	// Address encoding magics
-	MainNetParams.AddressMagicLen = 2
-	MainNetParams.PubKeyHashAddrID = []byte{0}
-	MainNetParams.ScriptHashAddrID = []byte{0}
+	MainNetParams.AddressMagicLen = 1
+	MainNetParams.PubKeyHashAddrID = []byte{0} // base58 prefix: 1
+	MainNetParams.ScriptHashAddrID = []byte{5} // base58 prefix: 3
+	MainNetParams.PrivateKeyID = []byte{128}
 
 	TestNetParams = chaincfg.TestNet3Params
 	TestNetParams.Net = TestnetMagic
 
 	// Address encoding magics
-	TestNetParams.AddressMagicLen = 2
-	TestNetParams.PubKeyHashAddrID = []byte{0}
-	TestNetParams.ScriptHashAddrID = []byte{0}
+	TestNetParams.AddressMagicLen = 1
+	TestNetParams.PubKeyHashAddrID = []byte{111}
+	TestNetParams.ScriptHashAddrID = []byte{196}
+	TestNetParams.PrivateKeyID = []byte{239}
 
 	RegtestParams = chaincfg.RegressionNetParams
 	RegtestParams.Net = RegtestMagic

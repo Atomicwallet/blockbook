@@ -12,11 +12,11 @@
     "blockbook_public": 9143
   },
   "ipc": {
-    "rpc_url_template": "http://10.0.0.94:{{.Ports.BackendRPC}}",
+    "rpc_url_template": "https://bitcoindiamond.atomicnodes.com",
     "rpc_user": "rpc",
     "rpc_pass": "rpc",
     "rpc_timeout": 25,
-    "message_queue_binding_template": "tcp://10.0.0.94:{{.Ports.BackendMessageQueue}}"
+    "message_queue_binding_template": "tcp://127.0.0.1:{{.Ports.BackendMessageQueue}}"
   },
   "backend": {
     "package_name": "backend-bdiamond",
