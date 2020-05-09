@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net"
+	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -107,7 +108,7 @@ func makeBlockChain(coin string) (bchain.BlockChain, bchain.Mempool, error) {
 		fmt.Println("TempDir err:", err)
 		return nil, nil, err
 	}
-	//defer os.RemoveAll(outputDir)
+	defer os.RemoveAll(outputDir)
 
 	fmt.Println(outputDir)
 	err = build.GeneratePackageDefinitions(c, "../build/templates", outputDir)
@@ -172,7 +173,6 @@ func initBlockChain(coinName string, cfg json.RawMessage) (bchain.BlockChain, bc
 
 	for i := 0; ; i++ {
 		err = chain.Initialize()
-		fmt.Println("Initialize:", err)
 		if err == nil {
 			break
 		}

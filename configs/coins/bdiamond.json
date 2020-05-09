@@ -7,12 +7,12 @@
   },
   "ports": {
     "backend_rpc": 7116,
-    "backend_message_queue": 38346,
-    "blockbook_internal": 9043,
-    "blockbook_public": 9143
+    "backend_message_queue": 38333,
+    "blockbook_internal": 9033,
+    "blockbook_public": 9133
   },
   "ipc": {
-    "rpc_url_template": "https://bitcoindiamond.atomicnodes.com",
+    "rpc_url_template": "http://10.0.0.94:{{.Ports.BackendRPC}}",
     "rpc_user": "rpc",
     "rpc_pass": "rpc",
     "rpc_timeout": 25,
@@ -35,8 +35,7 @@
     "server_config_file": "bitcoin_like.conf",
     "client_config_file": "bitcoin_like_client.conf",
     "additional_params": {
-      "mempoolexpiry": 72,
-      "deprecatedrpc": "estimatefee"
+      "mempoolexpiry": 72
     }
   },
   "blockbook": {

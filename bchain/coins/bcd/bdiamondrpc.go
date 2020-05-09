@@ -24,6 +24,7 @@ func NewBdiamondRPC(config json.RawMessage, pushHandler func(bchain.Notification
 	z := &BdiamondRPC{
 		BitcoinRPC: b.(*btc.BitcoinRPC),
 	}
+	fmt.Println("NewBdiamondRPC:", z)
 	z.RPCMarshaler = btc.JSONMarshalerV1{}
 	z.ChainConfig.SupportsEstimateFee = false
 	z.ChainConfig.SupportsEstimateSmartFee = true

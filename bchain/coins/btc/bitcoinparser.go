@@ -107,7 +107,6 @@ func (p *BitcoinParser) IsAddrDescIndexable(addrDesc bchain.AddressDescriptor) b
 func (p *BitcoinParser) addressToOutputScript(address string) ([]byte, error) {
 	fmt.Println("addressToOutputScript:", address)
 	da, err := btcutil.DecodeAddress(address, p.Params)
-	fmt.Println("addressToOutputScript p.Params:", p.Params)
 	fmt.Println("addressToOutputScript err:", err)
 	if err != nil {
 		return nil, err

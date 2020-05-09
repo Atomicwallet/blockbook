@@ -3,6 +3,7 @@ package zec
 import (
 	"blockbook/bchain"
 	"blockbook/bchain/coins/btc"
+	"fmt"
 
 	"github.com/martinboehm/btcd/wire"
 	"github.com/martinboehm/btcutil/chaincfg"
@@ -65,12 +66,18 @@ func NewZCashParser(params *chaincfg.Params, c *btc.Configuration) *ZCashParser 
 // the regression test ZCash network, the test ZCash network and
 // the simulation test ZCash network, in this order
 func GetChainParams(chain string) *chaincfg.Params {
+	fmt.Println("GetChainParams. Chain:", chain)
+	fmt.Println("GetChainParams.IsRegistered MainNetParams:", chaincfg.IsRegistered(&MainNetParams))
 	if !chaincfg.IsRegistered(&MainNetParams) {
+		fmt.Println("GetChainParams chaincfg.Register(&MainNetParams)")
 		err := chaincfg.Register(&MainNetParams)
+		fmt.Println("GetChainParams err:", err)
 		if err == nil {
+			fmt.Println("GetChainParams chaincfg.Register(&TestNetParams)")
 			err = chaincfg.Register(&TestNetParams)
 		}
 		if err == nil {
+			fmt.Println("GetChainParams chaincfg.Register(&RegtestParams)")
 			err = chaincfg.Register(&RegtestParams)
 		}
 		if err != nil {
@@ -79,10 +86,13 @@ func GetChainParams(chain string) *chaincfg.Params {
 	}
 	switch chain {
 	case "test":
+		fmt.Println("GetChainParams case chain: test")
 		return &TestNetParams
 	case "regtest":
+		fmt.Println("GetChainParams case chain: regtest")
 		return &RegtestParams
 	default:
+		fmt.Println("GetChainParams case chain: mainnet")
 		return &MainNetParams
 	}
 }
