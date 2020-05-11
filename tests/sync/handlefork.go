@@ -124,6 +124,7 @@ func verifyAddresses2(t *testing.T, d *db.RocksDB, chain bchain.BlockChain, blks
 func verifyTransactions2(t *testing.T, d *db.RocksDB, rng Range, addr2txs map[string][]string, exist bool) {
 	noErrs := 0
 	for addr, txs := range addr2txs {
+		fmt.Println("verifyTransactions2 addr2txs:", addr2txs)
 		checkMap := make(map[string]bool, len(txs))
 		for _, txid := range txs {
 			checkMap[txid] = false
@@ -147,6 +148,9 @@ func verifyTransactions2(t *testing.T, d *db.RocksDB, rng Range, addr2txs map[st
 
 		for _, txid := range txs {
 			if checkMap[txid] != exist {
+				fmt.Println("verifyTransactions2 addr:", addr)
+				fmt.Println("verifyTransactions2 txs: ", txs)
+				fmt.Println("verifyTransactions2 txid:", txid)
 				auxverb := "wasn't"
 				if !exist {
 					auxverb = "was"
