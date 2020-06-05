@@ -3,7 +3,6 @@
 package rpc
 
 import (
-	"blockbook/bchain"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -15,6 +14,7 @@ import (
 
 	mapset "github.com/deckarep/golang-set"
 	"github.com/juju/errors"
+	"github.com/trezor/blockbook/bchain"
 )
 
 var testMap = map[string]func(t *testing.T, th *TestHandler){

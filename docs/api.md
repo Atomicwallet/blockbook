@@ -25,7 +25,7 @@ Socket.io interface is provided at `/socket.io/`. The interface also can be expl
 
 The legacy API is provided as is and will not be further developed.
 
-The legacy API is currently (Blockbook v0.3.2) also accessible without the */v1/* prefix, however in the future versions the version less access will be removed.
+The legacy API is currently (Blockbook v0.3.3) also accessible without the */v1/* prefix, however in the future versions the version less access will be removed.
 
 ## API V2
 
@@ -67,7 +67,7 @@ Response:
   "blockbook": {
     "coin": "Bitcoin",
     "host": "blockbook",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "gitCommit": "3d9ad91",
     "buildTime": "2019-05-17T14:34:00+00:00",
     "syncMode": true,
@@ -217,7 +217,8 @@ Response for Ethereum-type coins. There is always only one *vin*, only one *vout
     "nonce": 2830,
     "gasLimit": 36591,
     "gasUsed": 36591,
-    "gasPrice": "11000000000"
+    "gasPrice": "11000000000",
+    "data": "0xa9059cbb000000000000000000000000ba98d6a5"
   }
 }
 ```
@@ -673,6 +674,7 @@ Example response (fiatcurrency not specified):
     "txs": 5,
     "received": "5000000",
     "sent": "0",
+    "sentToSelf":"100000",
     "rates": {
       "usd": 7855.9,
       "eur": 6838.13,
@@ -684,6 +686,7 @@ Example response (fiatcurrency not specified):
     "txs": 1,
     "received": "0",
     "sent": "5000000",
+    "sentToSelf":"0",
     "rates": {
       "usd": 8283.11,
       "eur": 7464.45,
@@ -702,6 +705,7 @@ Example response (fiatcurrency=usd):
     "txs": 5,
     "received": "5000000",
     "sent": "0",
+    "sentToSelf":"0",
     "rates": {
       "usd": 7855.9
     }
@@ -711,6 +715,7 @@ Example response (fiatcurrency=usd):
     "txs": 1,
     "received": "0",
     "sent": "5000000",
+    "sentToSelf":"0",
     "rates": {
       "usd": 8283.11
     }
@@ -727,12 +732,15 @@ Example response (fiatcurrency=usd&groupBy=172800):
     "txs": 6,
     "received": "5000000",
     "sent": "5000000",
+    "sentToSelf":"0",
     "rates": {
       "usd": 7734.45
     }
   }
 ]
 ```
+
+The value of `sentToSelf` is the amount sent from the same address to the same address or within addresses of xpub.
 
 ### Websocket API
 

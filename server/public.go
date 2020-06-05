@@ -1,10 +1,6 @@
 package server
 
 import (
-	"blockbook/api"
-	"blockbook/bchain"
-	"blockbook/common"
-	"blockbook/db"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -22,6 +18,10 @@ import (
 	"time"
 
 	"github.com/golang/glog"
+	"github.com/trezor/blockbook/api"
+	"github.com/trezor/blockbook/bchain"
+	"github.com/trezor/blockbook/common"
+	"github.com/trezor/blockbook/db"
 )
 
 const txsOnPage = 25
@@ -219,10 +219,14 @@ func (s *PublicServer) OnNewFiatRatesTicker(ticker *db.CurrencyRatesTicker) {
 	s.websocket.OnNewFiatRatesTicker(ticker)
 }
 
-// OnNewTxAddr notifies users subscribed to bitcoind/addresstxid about new block
+// OnNewTxAddr notifies users subscribed to notification about new tx
 func (s *PublicServer) OnNewTxAddr(tx *bchain.Tx, desc bchain.AddressDescriptor) {
 	s.socketio.OnNewTxAddr(tx.Txid, desc)
-	s.websocket.OnNewTxAddr(tx, desc)
+}
+
+// OnNewTx notifies users subscribed to notification about new tx
+func (s *PublicServer) OnNewTx(tx *bchain.MempoolTx) {
+	s.websocket.OnNewTx(tx)
 }
 
 func (s *PublicServer) txRedirect(w http.ResponseWriter, r *http.Request) {

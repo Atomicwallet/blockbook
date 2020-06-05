@@ -1,7 +1,6 @@
 package eth
 
 import (
-	"blockbook/bchain"
 	"encoding/hex"
 	"math/big"
 	"strconv"
@@ -9,6 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/golang/protobuf/proto"
 	"github.com/juju/errors"
+	"github.com/trezor/blockbook/bchain"
 	"golang.org/x/crypto/sha3"
 )
 
@@ -475,17 +475,24 @@ type EthereumTxData struct {
 	GasLimit *big.Int `json:"gaslimit"`
 	GasUsed  *big.Int `json:"gasused"`
 	GasPrice *big.Int `json:"gasprice"`
+	Data     string   `json:"data"`
 }
 
 // GetEthereumTxData returns EthereumTxData from bchain.Tx
 func GetEthereumTxData(tx *bchain.Tx) *EthereumTxData {
+	return GetEthereumTxDataFromSpecificData(tx.CoinSpecificData)
+}
+
+// GetEthereumTxDataFromSpecificData returns EthereumTxData from coinSpecificData
+func GetEthereumTxDataFromSpecificData(coinSpecificData interface{}) *EthereumTxData {
 	etd := EthereumTxData{Status: txStatusPending}
-	csd, ok := tx.CoinSpecificData.(completeTransaction)
+	csd, ok := coinSpecificData.(completeTransaction)
 	if ok {
 		if csd.Tx != nil {
 			etd.Nonce, _ = hexutil.DecodeUint64(csd.Tx.AccountNonce)
 			etd.GasLimit, _ = hexutil.DecodeBig(csd.Tx.GasLimit)
 			etd.GasPrice, _ = hexutil.DecodeBig(csd.Tx.GasPrice)
+			etd.Data = csd.Tx.Payload
 		}
 		if csd.Receipt != nil {
 			switch csd.Receipt.Status {
