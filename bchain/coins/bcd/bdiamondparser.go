@@ -1,9 +1,10 @@
 package bcd
 
 import (
-	"blockbook/bchain"
-	"blockbook/bchain/coins/btc"
 	"fmt"
+
+	"github.com/trezor/blockbook/bchain"
+	"github.com/trezor/blockbook/bchain/coins/btc"
 
 	"github.com/martinboehm/btcd/wire"
 	"github.com/martinboehm/btcutil/chaincfg"

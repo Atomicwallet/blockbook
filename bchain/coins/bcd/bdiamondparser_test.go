@@ -3,8 +3,8 @@
 package bcd
 
 import (
-	"blockbook/bchain"
-	"blockbook/bchain/coins/btc"
+	"github.com/trezor/blockbook/bchain"
+	"github.com/trezor/blockbook/bchain/coins/btc"
 	"bytes"
 	"encoding/hex"
 	"fmt"
