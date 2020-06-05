@@ -1,13 +1,8 @@
 package zec
 
 import (
-<<<<<<< HEAD
-	"blockbook/bchain"
-	"blockbook/bchain/coins/btc"
 	"fmt"
 
-=======
->>>>>>> origin/master
 	"github.com/martinboehm/btcd/wire"
 	"github.com/martinboehm/btcutil/chaincfg"
 	"github.com/trezor/blockbook/bchain"
