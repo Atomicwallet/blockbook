@@ -75,7 +75,6 @@ func NewBCashParser(params *chaincfg.Params, c *btc.Configuration) (*BCashParser
 		AddressFormat: format,
 	}
 	p.OutputScriptToAddressesFunc = p.outputScriptToAddresses
-	p.AmountDecimalPoint = 7
 	return p, nil
 }
 
