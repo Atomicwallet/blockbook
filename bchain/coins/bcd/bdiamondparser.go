@@ -59,7 +59,14 @@ type BdiamondParser struct {
 }
 
 // NewBdiamondParser returns new BdiamondParser instance
+//func NewBdiamondParser(params *chaincfg.Params, c *btc.Configuration) *BdiamondParser {
+//	return &BdiamondParser{
+//		BitcoinParser: btc.NewBitcoinParser(params, c),
+//		baseparser:    &bchain.BaseParser{},
+//	}
+//}
 func NewBdiamondParser(params *chaincfg.Params, c *btc.Configuration) *BdiamondParser {
+	c.AmountDecimalPoint = 7
 	return &BdiamondParser{
 		BitcoinParser: btc.NewBitcoinParser(params, c),
 		baseparser:    &bchain.BaseParser{},
