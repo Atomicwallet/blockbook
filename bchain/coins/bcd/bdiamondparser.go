@@ -65,12 +65,18 @@ type BdiamondParser struct {
 //		baseparser:    &bchain.BaseParser{},
 //	}
 //}
+//func NewBdiamondParser(params *chaincfg.Params, c *btc.Configuration) *BdiamondParser {
+//	c.AmountDecimalPoint = 7
+//	return &BdiamondParser{
+//		BitcoinParser: btc.NewBitcoinParser(params, c),
+//		baseparser:    &bchain.BaseParser{},
+//	}
+//}
+
 func NewBdiamondParser(params *chaincfg.Params, c *btc.Configuration) *BdiamondParser {
-	c.AmountDecimalPoint = 7
-	return &BdiamondParser{
-		BitcoinParser: btc.NewBitcoinParser(params, c),
-		baseparser:    &bchain.BaseParser{},
-	}
+	p := &BdiamondParser{BitcoinParser: btc.NewBitcoinParser(params, c)}
+	p.AmountDecimalPoint = 7
+	return p
 }
 
 // GetChainParams contains network parameters for the main Bdiamond network,

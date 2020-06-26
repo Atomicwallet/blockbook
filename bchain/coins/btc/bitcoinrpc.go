@@ -59,7 +59,6 @@ type Configuration struct {
 	AlternativeEstimateFee       string `json:"alternative_estimate_fee,omitempty"`
 	AlternativeEstimateFeeParams string `json:"alternative_estimate_fee_params,omitempty"`
 	MinimumCoinbaseConfirmations int    `json:"minimumCoinbaseConfirmations,omitempty"`
-	AmountDecimalPoint           int    `8`
 }
 
 // NewBitcoinRPC returns new BitcoinRPC instance.
