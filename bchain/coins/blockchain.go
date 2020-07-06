@@ -29,6 +29,7 @@ import (
 	"github.com/trezor/blockbook/bchain/coins/fujicoin"
 	"github.com/trezor/blockbook/bchain/coins/gamecredits"
 	"github.com/trezor/blockbook/bchain/coins/grs"
+	"github.com/trezor/blockbook/bchain/coins/kmd"
 	"github.com/trezor/blockbook/bchain/coins/koto"
 	"github.com/trezor/blockbook/bchain/coins/liquid"
 	"github.com/trezor/blockbook/bchain/coins/litecoin"
@@ -115,6 +116,7 @@ func init() {
 	BlockChainFactories["Omotenashicoin"] = omotenashicoin.NewOmotenashiCoinRPC
 	BlockChainFactories["Omotenashicoin Testnet"] = omotenashicoin.NewOmotenashiCoinRPC
 	BlockChainFactories["BitZeny"] = bitzeny.NewBitZenyRPC
+	BlockChainFactories["Komodo"] = kmd.NewKmdRPC
 }
 
 // GetCoinNameFromConfig gets coin name and coin shortcut from config file
