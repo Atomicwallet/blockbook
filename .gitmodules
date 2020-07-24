@@ -1,4 +1,4 @@
-[submodule "blockbook-tools."]
+[submodule "blockbook-tools"]
 	path = blockbook-tools
 	url = git@github.com:Atomicwallet/blockbook-tools.git
 	branch = master
